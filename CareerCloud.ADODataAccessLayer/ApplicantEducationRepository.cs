@@ -33,7 +33,7 @@ namespace CareerCloud.ADODataAccessLayer
                 {
                     comm.CommandText = @"INSERT INTO [dbo].[Applicant_Educations]
                     ( [Id], [Applicant], [Major], [Certificate_Diploma], [Start_Date], [Completion_Date], [Completion_Percent] )
-              VALUES( @Id, @Applicant, @Major, @Certificate_Diploma, @Start_Date, @Completion_Date, @Completion_Percent )";
+                     VALUES( @Id, @Applicant, @Major, @Certificate_Diploma, @Start_Date, @Completion_Date, @Completion_Percent )";
                     comm.Parameters.AddWithValue("@Id", item.Id);
                     comm.Parameters.AddWithValue("@Applicant", item.Applicant);
                     comm.Parameters.AddWithValue("@Major", item.Major);
@@ -93,17 +93,17 @@ namespace CareerCloud.ADODataAccessLayer
             where, params Expression<Func<ApplicantEducationPoco, object>>[] navigationProperties)
         {
             IQueryable<ApplicantEducationPoco> pocos = GetAll().AsQueryable();
-            return pocos.Where(where).FirstOrDefault();
-            //ApplicantEducationPoco item = new ApplicantEducationPoco();
-            //try
-            //{
-            //    item = pocos.Where(where).FirstOrDefault();
-            //}
-            //catch
-            //{
-            //    return null;
-            //}
-            //return item;
+            //return pocos.Where(where).FirstOrDefault();
+            ApplicantEducationPoco item = new ApplicantEducationPoco();
+            try
+            {
+                item = pocos.Where(where).FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
+            return item;
         }
 
         public void Remove(params ApplicantEducationPoco[] items)

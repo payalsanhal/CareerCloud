@@ -25,7 +25,31 @@ namespace CareerCloud.ADODataAccessLayer
 
         public void Add(params ApplicantSkillPoco[] items)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connStr))
+            {
+                SqlCommand comm = new SqlCommand();
+                comm.Connection = connection;
+                foreach (ApplicantSkillPoco item in items)
+                {
+                    comm.CommandText = @"INSERT INTO [dbo].[Applicant_Resumes]
+                                       ([Id]
+                                       ,[Applicant]
+                                       ,[Resume]
+                                       ,[Last_Updated])
+                                 VALUES
+                                       (@Id
+                                       ,@Applicant
+                                       ,@Resume
+                                       ,@Last_Updated)";
+                    comm.Parameters.AddWithValue("@Id", item.Id);
+                    comm.Parameters.AddWithValue("@Applicant", item.Applicant);
+                    comm.Parameters.AddWithValue("@Resume", item.Resume);
+                    comm.Parameters.AddWithValue("@Last_Updated", item.LastUpdated);
+                    connection.Open();
+                    int rowAffected = comm.ExecuteNonQuery();
+                    connection.Close();
+                }
+            } 
         }
 
         public void CallStoredProc(string name, params Tuple<string, string>[] parameters)

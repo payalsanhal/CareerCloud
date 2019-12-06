@@ -22,6 +22,7 @@ namespace CareerCloud.ADODataAccessLayer
             var root = config.Build();
             _connStr = root.GetSection("ConnectionStrings").GetSection("DataConnection").Value;
         }
+
         public void Add(params ApplicantResumePoco[] items)
         {
             using (SqlConnection connection = new SqlConnection(_connStr))
@@ -99,7 +100,17 @@ namespace CareerCloud.ADODataAccessLayer
         public ApplicantResumePoco GetSingle(Expression<Func<ApplicantResumePoco, bool>> where, params Expression<Func<ApplicantResumePoco, object>>[] navigationProperties)
         {
             IQueryable<ApplicantResumePoco> pocos = GetAll().AsQueryable();
-            return pocos.Where(where).FirstOrDefault();
+            //return pocos.Where(where).FirstOrDefault();
+            ApplicantResumePoco item = new ApplicantResumePoco();
+            try
+            {
+                item = pocos.Where(where).FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
+            return item;
         }
 
         public void Remove(params ApplicantResumePoco[] items)

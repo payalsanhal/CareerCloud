@@ -115,7 +115,18 @@ namespace CareerCloud.ADODataAccessLayer
         public ApplicantProfilePoco GetSingle(Expression<Func<ApplicantProfilePoco, bool>> where, params Expression<Func<ApplicantProfilePoco, object>>[] navigationProperties)
         {
             IQueryable<ApplicantProfilePoco> pocos = GetAll().AsQueryable();
-            return pocos.Where(where).FirstOrDefault();
+            //return pocos.Where(where).FirstOrDefault();
+
+            ApplicantProfilePoco item = new ApplicantProfilePoco();
+            try
+            {
+                item = pocos.Where(where).FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
+            return item;
         }
 
         public void Remove(params ApplicantProfilePoco[] items)
