@@ -73,7 +73,7 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.LanguageID = sqlReader.GetString(0);
                     poco.Name = sqlReader.GetString(1);
                     poco.NativeName = sqlReader.GetString(2);
-                   
+
                     pocos[index] = poco;
                     index++;
                 }
@@ -90,7 +90,17 @@ namespace CareerCloud.ADODataAccessLayer
         public SystemLanguageCodePoco GetSingle(Expression<Func<SystemLanguageCodePoco, bool>> where, params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
             IQueryable<SystemLanguageCodePoco> pocos = GetAll().AsQueryable();
-            return pocos.Where(where).FirstOrDefault();
+            //return pocos.Where(where).FirstOrDefault();
+            SystemLanguageCodePoco item = new SystemLanguageCodePoco();
+            try
+            {
+                item = pocos.Where(where).FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
+            return item;
         }
 
         public void Remove(params SystemLanguageCodePoco[] items)

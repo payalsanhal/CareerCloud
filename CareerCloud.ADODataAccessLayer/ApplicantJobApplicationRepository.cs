@@ -7,13 +7,13 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace CareerCloud.ADODataAccessLayer
 {
     public class ApplicantJobApplicationRepository : IDataRepository<ApplicantJobApplicationPoco>
     {
         protected readonly string _connStr;
-
         public ApplicantJobApplicationRepository()
         {
             var config = new ConfigurationBuilder();
@@ -90,10 +90,10 @@ namespace CareerCloud.ADODataAccessLayer
             throw new NotImplementedException();
         }
 
-        public ApplicantJobApplicationPoco GetSingle(Expression<Func<ApplicantJobApplicationPoco, bool>> where,
-            params Expression<Func<ApplicantJobApplicationPoco, object>>[] navigationProperties)
+        public ApplicantJobApplicationPoco GetSingle(Expression<Func<ApplicantJobApplicationPoco, bool>> where, params Expression<Func<ApplicantJobApplicationPoco, object>>[] navigationProperties)
         {
             IQueryable<ApplicantJobApplicationPoco> pocos = GetAll().AsQueryable();
+            // return pocos.Where(where).FirstOrDefault();
             ApplicantJobApplicationPoco item = new ApplicantJobApplicationPoco();
             try
             {
