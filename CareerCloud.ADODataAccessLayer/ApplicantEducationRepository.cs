@@ -80,6 +80,7 @@ namespace CareerCloud.ADODataAccessLayer
                     {
                         poco.CompletionPercent = (byte?)sqlReader[6];
                     }
+                    
                     poco.TimeStamp = (byte[])sqlReader[7];
 
                     pocos[index] = poco;
