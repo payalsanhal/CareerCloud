@@ -40,6 +40,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
             config.AddJsonFile(path, false);
             var root = config.Build();
             string _connStr = root.GetSection("ConnectionStrings").GetSection("DataConnection").Value;
+            //optionsBuilder.UseLazyLoadingProxies();
             optionsBuilder.UseSqlServer(_connStr);
 
             base.OnConfiguring(optionsBuilder);
@@ -104,15 +105,6 @@ namespace CareerCloud.EntityFrameworkDataAccess
                    .HasForeignKey(e => e.Login);
                });
 
-            //modelBuilder.Entity<SecurityRolePoco>
-            //   (e =>
-            //   {
-            //       e.ToTable("Security_Roles");
-            //       e.HasKey(e => e.Id);
-            //       e.HasOne(i => i.SecurityLoginsRole)
-            //       .WithMany(p => p.SecurityRoles)
-            //       .HasForeignKey(e => e.Id);
-            //   });
             modelBuilder.Entity<SecurityLoginsRolePoco>
                (e =>
                {
@@ -155,16 +147,6 @@ namespace CareerCloud.EntityFrameworkDataAccess
                  .WithMany(p => p.ApplicantProfiles)
                  .HasForeignKey(e => e.Country);
              });
-
-            //modelBuilder.Entity<SystemCountryCodePoco>
-            //(e =>
-            //{
-            //    e.ToTable("System_Country_Codes");
-            //    e.HasOne(e => e.ApplicantWorkHistorys)
-            //   .WithOne(ee => ee.SystemCountryCode);
-            //    //.HasForeignKey(f => f.)
-            //    // e.Property(e => e.TimeStamp).IsRowVersion();
-            //});
 
             modelBuilder.Entity<ApplicantJobApplicationPoco>(e =>
             {

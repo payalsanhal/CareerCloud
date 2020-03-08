@@ -40,9 +40,9 @@ namespace CareerCloud.BusinessLogicLayer
             return _repository.GetAll().ToList();
         }
 
-        public SystemLanguageCodePoco Get(Guid id)
+        public SystemLanguageCodePoco Get(string languageID)
         {
-            return _repository.GetSingle(c => c.LanguageID == id.ToString());
+            return _repository.GetSingle(c => c.LanguageID == languageID);
         }
 
         private void Verify(SystemLanguageCodePoco[] pocos)
